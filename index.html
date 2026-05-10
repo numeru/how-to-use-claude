@@ -369,13 +369,13 @@ svg .draw.visible { stroke-dashoffset: 0; }
 <div class="slide part-divider" data-slide="6">
   <div class="part-num step">PART 01</div>
   <h1 class="step">Intent와 CLAUDE.md</h1>
-  <p class="part-sub step">Claude는 컴퓨터를 알지만 우리 팀은 모른다</p>
+  <p class="part-sub step">Claude는 컴퓨터를 알지만 팀 맥락은 잘 모른다</p>
 </div>
 
 <!-- 8. Claude doesn't know our team -->
 <div class="slide" data-slide="7">
   <span class="section-tag">Part 1 · 1</span>
-  <h2 class="step">Claude는 컴퓨터를 잘 알지만<br>우리 팀은 모릅니다</h2>
+  <h2 class="step">Claude는 컴퓨터를 잘 알지만<br>팀 맥락은 자동으로 알지 못합니다</h2>
   <div class="grid-2 step" style="margin-top: 40px;">
     <div class="card good">
       <h4>잘 압니다</h4>
@@ -386,12 +386,11 @@ svg .draw.visible { stroke-dashoffset: 0; }
       </ul>
     </div>
     <div class="card bad">
-      <h4>모릅니다</h4>
+      <h4>자동으로 알지 못합니다</h4>
       <ul class="list x">
-        <li>우리 도메인 용어 (account vs workspace)</li>
         <li>"active user"가 정확히 뭔지</li>
         <li>건드리면 안 되는 모듈</li>
-        <li>과거 아키텍처 결정</li>
+        <li>과거의 결정 논리와 운영 맥락</li>
       </ul>
     </div>
   </div>
@@ -428,15 +427,15 @@ svg .draw.visible { stroke-dashoffset: 0; }
 <div class="slide" data-slide="9">
   <span class="section-tag">Part 1 · 2</span>
   <h2 class="step">CLAUDE.md는 문서가 아니라<br><span class="accent-gold">온보딩 매뉴얼</span>입니다</h2>
-  <p class="step" style="margin-top: 24px;">새 개발자가 팀에 들어왔을 때 알려주는 것들 —</p>
+  <p class="step" style="margin-top: 16px; font-size: 19px;">세션 시작 때 프로젝트 context로 포함됩니다.<br/>strict system prompt가 아니라 강제 보장되지는 않습니다.</p>
+  <p class="step" style="margin-top: 10px;">새 개발자가 팀에 들어왔을 때 알려주는 것들 —</p>
   <ul class="list step" style="margin-top: 20px;">
     <li>"테스트는 이렇게 돌려요"</li>
     <li>"이 디렉터리는 건드리면 안 돼요"</li>
     <li>"새 API 만들 때는 기존 pagination 패턴 따라야 해요"</li>
     <li>"권한 체크는 route 근처에 명시적으로 있어야 해요"</li>
-    <li>"아키텍처 바꾸기 전에는 먼저 계획 공유하세요"</li>
   </ul>
-  <div class="quote step" style="margin-top: 40px;">이 줄을 지우면 Claude가 실제로 실수할까?<br><span style="font-size: 20px; color: var(--text-soft);">→ "아니오"라면 빼도 됩니다.</span></div>
+  <div class="quote step" style="margin-top: 32px;">이 줄을 지우면 Claude가 실제로 실수할까?<br><span style="font-size: 20px; color: var(--text-soft);">→ "아니오"라면 빼도 됩니다.</span></div>
 </div>
 
 <!-- 11. CLAUDE.md In/Out -->
@@ -477,8 +476,9 @@ svg .draw.visible { stroke-dashoffset: 0; }
 <div class="slide" data-slide="11">
   <span class="section-tag">Part 1 · 4</span>
   <h2 class="step"><code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">/init</code>은 출발점일 뿐</h2>
-  <p class="step" style="margin-top: 16px;">프로젝트를 분석해서 starter CLAUDE.md를 만들어줍니다. 좋은 시작점이지만 그대로 믿으면 안 됩니다.</p>
-  <div class="step" style="margin-top: 40px;">
+  <p class="step" style="margin-top: 16px;">프로젝트를 분석해서 starter CLAUDE.md를 만들어줍니다.<br />기존 CLAUDE.md가 있으면 덮어쓰지 않고 개선점을 제안할 수도 있습니다.</p>
+  <p class="step" style="margin-top: 10px;">좋은 시작점이지만 그대로 믿으면 안 됩니다.</p>
+  <div class="step" style="margin-top: 28px;">
     <h3 style="color: var(--accent-gold); margin-bottom: 20px;">해야 할 일</h3>
     <ul class="list">
       <li>생성된 내용의 정확성을 확인한다</li>
@@ -488,12 +488,38 @@ svg .draw.visible { stroke-dashoffset: 0; }
       <li>자주 반복하는 지시를 넣는다</li>
     </ul>
   </div>
-  <p class="step accent-mint bold" style="margin-top: 36px; font-size: 22px;">가장 중요한 건 — 꾸준히 업데이트하며 fresh하게 유지하는 것</p>
+  <p class="step accent-mint bold" style="margin-top: 28px; font-size: 22px;">가장 중요한 건 — 꾸준히 업데이트하며 fresh하게 유지하는 것</p>
 </div>
 
-<!-- 13. Context separation -->
-<div class="slide" data-slide="12">
+<!-- 13. Memory layers -->
+<div class="slide" data-slide="11b">
   <span class="section-tag">Part 1 · 5</span>
+  <h2>CLAUDE.md만으로는 부족합니다</h2>
+  <p style="margin-top: 12px;">세션 간 지식 전달은 역할을 나눠야 context noise가 줄어듭니다.</p>
+  <div class="grid-2" style="margin-top: 28px; gap: 24px;">
+    <div class="card step" style="padding: 22px;">
+      <h4>CLAUDE.md</h4>
+      <p style="font-size: 16px;">팀과 프로젝트의 넓은 규칙, 금지 사항, 테스트 명령</p>
+    </div>
+    <div class="card step" style="padding: 22px;">
+      <h4>auto memory</h4>
+      <p style="font-size: 16px;">반복 선호, 수정 패턴, 디버깅 인사이트를 보완적으로 기록</p>
+    </div>
+    <div class="card step" style="padding: 22px;">
+      <h4><code style="font-family: 'JetBrains Mono', monospace;">.claude/rules/</code></h4>
+      <p style="font-size: 16px;">파일 타입과 경로별 규칙. 거대한 CLAUDE.md를 피하는 장치</p>
+    </div>
+    <div class="card step" style="padding: 22px;">
+      <h4>Skills</h4>
+      <p style="font-size: 16px;">특정 업무 절차, 긴 reference, 검증 gate를 필요할 때 로드</p>
+    </div>
+  </div>
+  <div class="quote step" style="margin-top: 28px; font-size: 24px;">팀 규칙은 명시하고, 반복 인사이트는 memory, 경로별 규칙은 rules, 절차는 Skill.</div>
+</div>
+
+<!-- 14. Context separation -->
+<div class="slide" data-slide="12">
+  <span class="section-tag">Part 1 · 6</span>
   <h2>CLAUDE.md 작성 팁: Context 분리</h2>
   <p style="margin-top: 12px;">모든 정보를 직접 넣으면 매 세션마다 토큰이 낭비됩니다.</p>
   <div class="grid-2" style="margin-top: 32px;">
@@ -533,7 +559,7 @@ svg .draw.visible { stroke-dashoffset: 0; }
   <span class="section-tag">Part 2 · 1</span>
   <h2 class="step">첫 프롬프트가 품질을 크게 좌우합니다</h2>
   <p class="step" style="margin-top: 16px;">대충 말하고 나중에 요구사항을 흘리면 Claude도 헤맵니다.</p>
-  <p class="step" style="color: var(--text-muted);">대화는 길어지고, 처음 잘못 잡은 방향은 context에 계속 남습니다.</p>
+  <p class="step">대화는 길어지고, 처음 잘못 잡은 방향은 context에 계속 남습니다.</p>
 
   <h3 class="step" style="margin-top: 50px; color: var(--accent-gold);">좋은 첫 프롬프트의 5가지</h3>
   <div class="grid-3" style="margin-top: 20px;">
@@ -839,16 +865,22 @@ foo module은 해당 API를 expose하지 않는다.
   <span class="section-tag">Part 3 · 1</span>
   <h2 class="step">Prompt caching은 prefix match다</h2>
   <p class="step" style="margin-top: 12px;">요청의 앞부분이 동일하면 캐시를 재사용할 수 있습니다.</p>
-  <div class="step" style="margin-top: 40px;">
-    <h3 style="color: var(--accent-gold);">좋은 순서</h3>
-    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
-      <div class="flow-box" style="background: rgba(212,167,106,0.1); border-color: var(--accent-gold);">① Static system prompt &amp; tools</div>
-      <div class="flow-box" style="background: rgba(212,167,106,0.08); border-color: var(--accent-gold);">② CLAUDE.md</div>
-      <div class="flow-box" style="background: rgba(91,141,238,0.1);">③ Session context</div>
-      <div class="flow-box" style="background: rgba(91,141,238,0.08);">④ Conversation messages</div>
+  <div class="grid-2 step" style="margin-top: 32px; gap: 32px;">
+    <div>
+      <h3 style="color: var(--accent-gold);">API 계층: tools → system → messages</h3>
+      <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
+        <div class="flow-box" style="background: rgba(212,167,106,0.1); border-color: var(--accent-gold);">① tools</div>
+        <div class="flow-box" style="background: rgba(212,167,106,0.08); border-color: var(--accent-gold);">② system</div>
+        <div class="flow-box" style="background: rgba(91,141,238,0.1);">③ messages</div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>TTL과 비용</h4>
+      <p style="font-size: 16px;">기본 TTL은 5분, 1시간 TTL은 추가 비용.<br>cache read 0.1x · 5분 write 1.25x · 1시간 write 2x.</p>
+      <p style="font-size: 15px; color: var(--text-muted);">CLAUDE.md는 system prompt가 아니라 messages 쪽 context로 주입됩니다.</p>
     </div>
   </div>
-  <div class="quote step large accent-gold" style="margin-top: 40px;">Stable context는 앞에. Dynamic updates는 뒤에.</div>
+  <div class="quote step large accent-gold" style="margin-top: 28px;">Stable context는 앞에. Dynamic updates는 뒤에.</div>
 </div>
 
 <!-- 29. Doesn't mean repeat -->
@@ -868,14 +900,14 @@ foo module은 해당 API를 expose하지 않는다.
   <span class="section-tag">Part 3 · 3</span>
   <h2>실제로 모델에게 보내지는 것</h2>
   <p style="margin-top: 12px; color: var(--text-muted);">우리는 "이 버그 고쳐줘" 한 줄을 입력했지만 —</p>
-  <div class="code small" style="margin-top: 24px;">[Claude Code의 고정 system prompt]
-[사용 가능한 tool 정의들]
-[프로젝트의 CLAUDE.md]
-[현재 세션 context]
-[지금까지의 대화 기록]
-[Claude가 읽은 파일 내용]
-[도구 실행 결과]
-<span class="c-gold">[마지막 사용자 메시지: "이 버그 고쳐줘"]</span></div>
+  <div class="code small" style="margin-top: 24px;">[사용 가능한 tool 정의들]
+[Claude Code의 고정 system prompt]
+[messages: 프로젝트의 CLAUDE.md와 rules context]
+[messages: 현재 세션 context]
+[messages: 지금까지의 대화 기록]
+[messages: Claude가 읽은 파일 내용]
+[messages: 도구 실행 결과]
+<span class="c-gold">[messages: 마지막 사용자 메시지 "이 버그 고쳐줘"]</span></div>
   <p class="step" style="margin-top: 24px;">우리가 입력한 프롬프트는 전체 요청 중 <span class="bold accent-gold">맨 끝에 붙는 작은 부분</span>일 수 있습니다.</p>
   <p class="step" style="margin-top: 12px;">앞부분이 이전 요청과 같으면 처리 결과를 재사용 → 캐시 적중.</p>
 </div>
@@ -885,14 +917,14 @@ foo module은 해당 API를 expose하지 않는다.
 <div class="slide" data-slide="30">
   <span class="section-tag">Part 3 · 4</span>
   <h2>static content first, dynamic content last</h2>
-  <p style="margin-top: 16px;">자주 바뀌는 정보를 앞에 두면? — 캐시가 깨집니다.</p>
+  <p style="margin-top: 16px;">자주 바뀌는 정보를 tools, system, messages 초반에 두면? — prefix가 흔들립니다.</p>
   <div class="grid-2 step" style="margin-top: 32px;">
     <div class="card bad">
       <div class="label">Bad — system prompt에 시간 박기</div>
       <div class="code small" style="margin-top: 12px;">현재 시간은 2026-05-09 10:01:03입니다.</div>
       <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">↓ 다음 요청</p>
       <div class="code small" style="margin-top: 4px;">현재 시간은 2026-05-09 10:01:17입니다.</div>
-      <p style="font-size: 15px; margin-top: 12px; color: #d49494;">→ prefix가 바뀌어 뒤의 긴 context 캐시가 모두 깨집니다</p>
+      <p style="font-size: 15px; margin-top: 12px; color: #d49494;">→ 초반 prefix가 바뀌어 뒤의 긴 context cache hit가 어려워집니다</p>
     </div>
     <div class="card good">
       <div class="label">Good</div>
@@ -922,7 +954,7 @@ foo module은 해당 API를 expose하지 않는다.
     <span class="pill">CLAUDE.md</span>
     <span class="pill">session context</span>
     <span class="pill">도구 구성</span>
-    <span class="pill">모델</span>
+    <span class="pill">모델·가격 가정</span>
     <span class="pill">긴 대화의 앞부분</span>
   </div>
   <p class="step accent-mint bold" style="margin-top: 28px; font-size: 20px;">→ 안정적인 정보와 동적인 정보를 잘 분리하는 것</p>
@@ -963,8 +995,8 @@ foo module은 해당 API를 expose하지 않는다.
 <!-- 33. Don't change models -->
 <div class="slide" data-slide="32">
   <span class="section-tag">Part 3 · 7</span>
-  <h2 class="step">모델을 중간에 바꾸면 캐시가 깨질 수 있다</h2>
-  <p class="step" style="margin-top: 12px;">Prompt cache는 <span class="bold">모델별로 따로</span> 잡힙니다.</p>
+  <h2 class="step">모델을 중간에 바꾸면 가정이 달라질 수 있다</h2>
+  <p class="step" style="margin-top: 12px;">cache hit는 동일한 prefix를 전제로 하고, 가격과 지원 조건은 모델별로 다릅니다.</p>
   <div class="step" style="margin-top: 32px;">
     <div class="card bad">
       <div class="label">직관</div>
@@ -973,18 +1005,17 @@ foo module은 해당 API를 expose하지 않는다.
   </div>
   <div class="step" style="margin-top: 20px;">
     <div class="card good">
-      <div class="label">실제</div>
-      <p style="font-size: 19px; margin-top: 8px;">Opus에서 쌓은 prompt cache는 Haiku에서 그대로 못 씁니다.<br>Haiku용 캐시를 다시 쌓아야 합니다 → 100,000 토큰을 새로 처리.</p>
+      <div class="label">안전한 설명</div>
+      <p style="font-size: 19px; margin-top: 8px;">모델 전환이 항상 비용 절감으로 이어진다고 단정하지 말 것.<br>긴 context 전체보다 handoff summary를 넘기는 편이 안전합니다.</p>
     </div>
   </div>
-  <p class="step accent-mint bold" style="margin-top: 32px; font-size: 22px;">→ 모델을 바꾸고 싶다면 handoff: 요약만 다른 모델에 넘기기</p>
 </div>
 
 <!-- 34. Don't change tools -->
 <div class="slide" data-slide="33">
   <span class="section-tag">Part 3 · 8</span>
   <h2 class="step">Tool set도 중간에 바꾸지 마라</h2>
-  <p class="step" style="margin-top: 12px;">tool 정의는 prompt prefix의 일부 — 중간에 추가/제거하면 prefix가 바뀝니다.</p>
+  <p class="step" style="margin-top: 12px;">tool 정의는 prompt prefix의 일부 — 변경하면 tools / system / messages cache 전체가 무효화될 수 있습니다.</p>
   <div class="step" style="margin-top: 36px;">
     <h3 style="color: #d49494;">위험한 직관들</h3>
     <ul class="list x" style="margin-top: 16px;">
@@ -993,7 +1024,7 @@ foo module은 해당 API를 expose하지 않는다.
       <li>"필요할 때만 추가하면 context도 줄고 좋은 거 아닌가?"</li>
     </ul>
   </div>
-  <p class="step accent-gold bold" style="margin-top: 36px; font-size: 22px;">→ stable stub + tool search가 더 cache-safe합니다</p>
+  <p class="step accent-gold bold" style="margin-top: 36px; font-size: 22px;">→ stable stub + tool search / <code style="font-family: 'JetBrains Mono', monospace;">defer_loading</code>이 더 cache-safe합니다</p>
 </div>
 
 <!-- 35. Caching takeaways -->
@@ -1011,7 +1042,7 @@ foo module은 해당 API를 expose하지 않는다.
     </div>
     <div class="card step" style="display: flex; gap: 24px; align-items: center;">
       <div class="big-num" style="font-size: 60px; min-width: 80px;">03</div>
-      <div><h4 style="margin-bottom: 4px;">긴 세션 중간에 모델·tool 구성을 함부로 바꾸지 마라</h4><p style="font-size: 16px;">prefix가 흔들리면 캐시가 무효화됩니다</p></div>
+      <div><h4 style="margin-bottom: 4px;">긴 세션 중간에 모델·tool 구성을 함부로 바꾸지 마라</h4><p style="font-size: 16px;">모델은 비용/latency 가정, tools는 cache prefix를 흔듭니다</p></div>
     </div>
     <div class="card step" style="display: flex; gap: 24px; align-items: center;">
       <div class="big-num" style="font-size: 60px; min-width: 80px;">04</div>
@@ -1046,7 +1077,7 @@ foo module은 해당 API를 expose하지 않는다.
     </div>
     <div class="card step">
       <h4 style="color: #d49494;">Hook</h4>
-      <p style="font-size: 17px; margin-top: 8px;">반드시 실행되어야 하는 deterministic automation</p>
+      <p style="font-size: 17px; margin-top: 8px;">이벤트와 matcher가 맞으면 자동 실행되는 automation</p>
     </div>
   </div>
   <p class="step" style="margin-top: 32px; font-size: 18px; color: var(--text-muted);">+ slash command, plugin, CLI script, Makefile, log file, browser automation</p>
@@ -1065,7 +1096,7 @@ foo module은 해당 API를 expose하지 않는다.
       <div class="flow-box" style="justify-content: flex-start; border-color: var(--accent-mint); background: rgba(110,207,171,0.1);">③ MCP + Skill 결합으로 팀 workflow 표준화</div>
     </div>
   </div>
-  <p class="step" style="margin-top: 32px; color: var(--text-muted); font-size: 18px;">MCP도 비용과 실패 가능성이 있습니다. 다만 tool search / defer loading으로 완화됩니다.</p>
+  <p class="step" style="margin-top: 32px; color: var(--text-muted); font-size: 18px;">MCP도 비용과 실패 가능성이 있습니다. 다만 tool search / <code style="font-family: 'JetBrains Mono', monospace;">defer_loading</code>으로 완화됩니다.</p>
 </div>
 
 <!-- 39. MCP isn't enough -->
@@ -1085,7 +1116,8 @@ foo module은 해당 API를 expose하지 않는다.
   <span class="section-tag">Part 4 · 4</span>
   <h2>Skills - 긴 프롬프트가 아니라 업무 절차</h2>
   <p style="margin-top: 12px;">"무엇을 할 수 있는지"가 아니라, <span class="bold">"우리 팀은 이 일을 어떻게 하는지"</span>를 가르치는 방법.</p>
-  <h3 class="step" style="margin-top: 36px; color: var(--accent-gold);">좋은 Skill 후보</h3>
+  <p class="step" style="font-size: 17px; margin-top: 8px; color: var(--text-muted);">Claude Code에서는 주로 <code style="font-family: 'JetBrains Mono', monospace;">.claude/skills/</code> 아래 Custom Skills를 만들어 팀 workflow를 정의합니다.</p>
+  <h3 class="step" style="margin-top: 24px; color: var(--accent-gold);">좋은 Skill 후보</h3>
   <div class="grid-3 step" style="margin-top: 16px;">
     <div class="card" style="padding: 18px;"><p style="font-size: 15px;">스프린트 계획</p></div>
     <div class="card" style="padding: 18px;"><p style="font-size: 15px;">Figma → 개발 handoff</p></div>
@@ -1099,61 +1131,9 @@ foo module은 해당 API를 expose하지 않는다.
   </div>
 </div>
 
-<!-- 40b. Part 4 · 5 - good skill starts with concrete use case -->
+<!-- 40.b Progressive disclosure -->
 <div class="slide" data-slide="39b">
   <span class="section-tag">Part 4 · 5</span>
-  <h2 class="step">좋은 Skill은<br>구체적 유스케이스에서 시작한다</h2>
-  <div class="grid-2" style="margin-top: 32px;">
-    <div class="card bad step">
-      <div class="label">Bad — 너무 넓고 모호함</div>
-      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> project-helper
-<span class="c-key">description:</span> Helps with the project.</div>
-    </div>
-    <div class="card good step">
-      <div class="label">Good — 명확한 trigger</div>
-      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> fix-github-issue
-<span class="c-key">description:</span> GitHub issue를 분석하고
-수정합니다. "fix issue", "GitHub issue",
-"issue #123", "bug ticket" 등 언급 시 사용.</div>
-    </div>
-  </div>
-  <h3 class="step" style="margin-top: 36px; color: var(--accent-gold);">Skill을 만들기 전에 정의할 것</h3>
-  <ul class="list step" style="margin-top: 12px;">
-    <li>사용자가 무엇을 달성하려는가? 필요한 입력은?</li>
-    <li>필요한 단계는? 어떤 도구를 써야 하는가?</li>
-    <li>어떤 도메인 지식이 필요한가? 완료 기준은?</li>
-    <li>실패 시 어떻게 복구하는가?</li>
-  </ul>
-  <p class="step accent-mint bold" style="margin-top: 24px; font-size: 20px;">Skill은 "멋진 프롬프트 모음"이 아닙니다 — 반복 가능한 업무 프로세스입니다.</p>
-</div>
-
-<!-- 41. Description matters -->
-<div class="slide" data-slide="40">
-  <span class="section-tag">Part 4 · 6</span>
-  <h2>Description이 Skill의 성패를 좌우한다</h2>
-  <p style="margin-top: 12px;">Claude는 Skill 본문을 항상 읽지 않습니다. 먼저 YAML <code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">description</code>을 보고 사용 여부를 판단합니다.</p>
-  <div class="grid-2" style="margin-top: 32px;">
-    <div class="card bad step">
-      <div class="label">Bad</div>
-      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> project-helper
-<span class="c-key">description:</span> Helps with the project.</div>
-      <p style="font-size: 16px; margin-top: 12px; color: var(--text-muted);">너무 넓고 모호함</p>
-    </div>
-    <div class="card good step">
-      <div class="label">Good</div>
-      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> fix-github-issue
-<span class="c-key">description:</span> GitHub issue를 분석하고
-수정합니다. 사용자가 "fix issue",
-"GitHub issue", "issue #123",
-"bug ticket" 등을 언급할 때 사용합니다.</div>
-    </div>
-  </div>
-  <p class="step" style="margin-top: 28px; color: var(--text-soft);">Skill이 잘 안 불린다면? → 모델 탓 말고 description부터 보세요</p>
-</div>
-
-<!-- 42. Progressive disclosure -->
-<div class="slide" data-slide="41">
-  <span class="section-tag">Part 4 · 7</span>
   <h2>Progressive Disclosure</h2>
   <p style="margin-top: 12px;">Skill은 보통 세 단계로 로드됩니다.</p>
   <div style="margin-top: 36px; display: flex; gap: 16px; align-items: stretch;">
@@ -1181,6 +1161,58 @@ foo module은 해당 API를 expose하지 않는다.
     │   └── pr-review-checklist.md
     └── scripts/
         └── validate-fix.sh</div>
+</div>
+
+<!-- 41. Description matters -->
+<div class="slide" data-slide="40">
+  <span class="section-tag">Part 4 · 6</span>
+  <h2>Description이 Skill의 성패를 좌우한다</h2>
+  <p style="margin-top: 12px;">Claude는 Skill 본문을 항상 읽지 않습니다. 먼저 YAML <code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">description</code>을 보고 사용 여부를 판단합니다.</p>
+  <div class="grid-2" style="margin-top: 32px;">
+    <div class="card bad step">
+      <div class="label">Bad</div>
+      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> project-helper
+<span class="c-key">description:</span> Helps with the project.</div>
+      <p style="font-size: 16px; margin-top: 12px; color: var(--text-muted);">너무 넓고 모호함</p>
+    </div>
+    <div class="card good step">
+      <div class="label">Good</div>
+      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> fix-github-issue
+<span class="c-key">description:</span> GitHub issue를 분석하고
+수정합니다. 사용자가 "fix issue",
+"GitHub issue", "issue #123",
+"bug ticket" 등을 언급할 때 사용합니다.</div>
+    </div>
+  </div>
+  <p class="step" style="margin-top: 28px; color: var(--text-soft);">Skill이 잘 안 불린다면? → 모델 탓 말고 description부터 보세요</p>
+</div>
+
+<!-- 42. good skill starts with concrete use case -->
+<div class="slide" data-slide="41">
+  <span class="section-tag">Part 4 · 7</span>
+  <h2 class="step">좋은 Skill은<br>구체적 유스케이스에서 시작한다</h2>
+  <div class="grid-2" style="margin-top: 32px;">
+    <div class="card bad step">
+      <div class="label">Bad — 너무 넓고 모호함</div>
+      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> project-helper
+<span class="c-key">description:</span> Helps with the project.</div>
+    </div>
+    <div class="card good step">
+      <div class="label">Good — 명확한 trigger</div>
+      <div class="code small" style="margin-top: 12px;"><span class="c-key">name:</span> fix-github-issue
+<span class="c-key">description:</span> GitHub issue를 분석하고
+수정합니다. "fix issue", "GitHub issue",
+"issue #123", "bug ticket" 등 언급 시 사용.</div>
+    </div>
+  </div>
+  <h3 class="step" style="margin-top: 36px; color: var(--accent-gold);">Skill을 만들기 전에 정의할 것</h3>
+  <ul class="list step" style="margin-top: 12px;">
+    <li>사용자가 무엇을 달성하려는가? 필요한 입력은?</li>
+    <li>필요한 단계는? 어떤 도구를 써야 하는가?</li>
+    <li>어떤 도메인 지식이 필요한가? 완료 기준은?</li>
+    <li>실패 시 어떻게 복구하는가?</li>
+  </ul>
+  <p class="step accent-mint bold" style="margin-top: 24px; font-size: 20px;">Skill은 "멋진 프롬프트 모음"이 아닙니다 — 반복 가능한 업무 프로세스입니다.</p>
 </div>
 
 <!-- 42a. Part 4 · 8 - Skill testing -->
@@ -1222,7 +1254,7 @@ foo module은 해당 API를 expose하지 않는다.
 <div class="slide" data-slide="42">
   <span class="section-tag">Part 4 · 9</span>
   <h2 class="step">Hooks - 말로 부탁하지 말고 시스템으로 강제하라</h2>
-  <p class="step" style="margin-top: 16px;">Hooks는 Claude Code 세션의 특정 이벤트 전후에 자동 실행되는 shell command입니다.</p>
+  <p class="step" style="margin-top: 16px; font-size: 19px;">Hooks는 특정 lifecycle 지점에서 shell command, HTTP endpoint, LLM prompt를 실행합니다.</p>
   <div class="grid-2 step" style="margin-top: 36px;">
     <div class="card">
       <h4 style="color: var(--text-muted);">CLAUDE.md의 지시</h4>
@@ -1230,12 +1262,12 @@ foo module은 해당 API를 expose하지 않는다.
     </div>
     <div class="card good">
       <h4>Hook</h4>
-      <p style="font-size: 19px; margin-top: 8px;">deterministic — <span class="bold">반드시</span> 실행된다</p>
+      <p style="font-size: 19px; margin-top: 8px;">matcher가 맞으면 자동 실행된다</p>
     </div>
   </div>
   <div class="step quote large" style="margin-top: 36px;">
     말로 부탁해도 되는 것 → CLAUDE.md / Skill<br>
-    예외 없이 실행돼야 하는 것 → <span class="accent-gold">Hook</span>
+    정해진 lifecycle에서 자동화할 것 → <span class="accent-gold">Hook</span>
   </div>
 </div>
 
@@ -1271,11 +1303,12 @@ foo module은 해당 API를 expose하지 않는다.
   </div>
 </div>
 
-<!-- 44. 8 hook types -->
+<!-- 44. Common hook events -->
 <div class="slide" data-slide="43">
   <span class="section-tag">Part 4 · 11</span>
-  <h2>Hook의 8가지 타입</h2>
-  <div class="hooks-grid" style="margin-top: 32px;">
+  <h2>자주 쓰는 Hook 이벤트</h2>
+  <p style="margin-top: 8px; font-size: 17px;">아래는 대표 이벤트입니다. 최신 reference에는 Setup, PostToolBatch, FileChanged, SessionEnd 등 더 많은 이벤트가 있습니다.</p>
+  <div class="hooks-grid" style="margin-top: 22px;">
     <div class="hook-cell step"><div class="hook-name">PreToolUse</div><div class="hook-desc">tool 실행 전 — 위험 명령 차단, file path 검증</div></div>
     <div class="hook-cell step"><div class="hook-name">PermissionRequest</div><div class="hook-desc">permission dialog 직전 — npm test 자동 승인 등</div></div>
     <div class="hook-cell step"><div class="hook-name">PostToolUse</div><div class="hook-desc">tool 종료 후 — Prettier, formatter 실행</div></div>
@@ -1285,14 +1318,14 @@ foo module은 해당 API를 expose하지 않는다.
     <div class="hook-cell step"><div class="hook-name">SubagentStop</div><div class="hook-desc">subagent 종료 — output 품질 검증</div></div>
     <div class="hook-cell step"><div class="hook-name">UserPromptSubmit</div><div class="hook-desc">prompt 제출 직후 — sprint context 주입</div></div>
   </div>
-  <p class="step" style="margin-top: 28px; color: #d49494; font-size: 17px;">⚠ Hook은 사용자 권한으로 shell command를 실행합니다. 보안 review 필수.</p>
+  <p class="step" style="margin-top: 24px; color: #d49494; font-size: 17px;">⚠ Command hook은 사용자 권한으로 shell command를 실행합니다. 보안 review 필수.</p>
 </div>
 
 <!-- 44b. Part 4 · 13 - Hook security -->
 <div class="slide" data-slide="43b">
   <span class="section-tag">Part 4 · 12</span>
   <h2 class="step">Hook 보안</h2>
-  <p class="step" style="margin-top: 12px;">Hook은 <span class="bold" style="color: #d49494;">사용자 권한으로 shell command를 실행</span>합니다. 강력한 만큼 사고가 나면 크게 납니다.</p>
+  <p class="step" style="margin-top: 12px;">Command hook은 <span class="bold" style="color: #d49494;">사용자 권한으로 shell command를 실행</span>합니다. 강력한 만큼 사고가 나면 크게 납니다.</p>
   <h3 class="step" style="margin-top: 36px; color: var(--accent-gold);">필수 원칙</h3>
   <div class="grid-2 step" style="margin-top: 16px;">
     <div>
@@ -1339,7 +1372,7 @@ foo module은 해당 API를 expose하지 않는다.
 <div class="slide" data-slide="44b">
   <span class="section-tag">Part 4 · 14</span>
   <h2 class="step">Explore Subagent</h2>
-  <p class="step" style="margin-top: 12px;">새 repo에서 작업을 시작할 때 — Claude는 관련 파일을 찾기 위해 많은 파일을 읽습니다. 이걸 main context에서 다 하면 context가 빨리 더러워집니다.</p>
+  <p class="step" style="margin-top: 12px;">새 repo에서 작업을 시작할 때 — Claude는 관련 파일을 찾기 위해 많은 파일을 읽습니다.<br />이걸 main context에서 다 하면 context가 빨리 더러워집니다.</p>
   <div class="step code small" style="margin-top: 32px;">Find the code that implements the chapter diff view.
 
 <span class="c-gold">Look for:</span>
@@ -1362,16 +1395,16 @@ and implementation summary.
   <span class="section-tag">Part 4 · 15</span>
   <h2 class="step">Parallel Subagents</h2>
   <p class="step" style="margin-top: 12px;">독립적인 파일 여러 개를 조사하거나 수정할 때 subagent를 <span class="bold">병렬로</span> 사용할 수 있습니다.</p>
-  <div class="step code small" style="margin-top: 32px;">Use subagents to find and update all templates
+  <div class="step code small" style="margin-top: 24px;">Use subagents to find and update all templates
 affected by this change.
-
 Each subagent should work on an independent
 template group and report modified files and tests.</div>
-  <h3 class="step" style="margin-top: 36px; color: #d49494;">⚠ 주의 — 파일 충돌</h3>
+  <h3 class="step" style="margin-top: 24px; color: #d49494;">⚠ 주의 — 파일 충돌</h3>
   <ul class="list step" style="margin-top: 12px;">
-    <li>병렬 수정은 worktree나 명확한 파일 소유권이 있을 때 안전합니다</li>
-    <li>무작정 병렬화하면 오히려 merge conflict와 리뷰 비용이 늘어납니다</li>
+    <li style="font-size: 19px; line-height: 1.35;">병렬 수정은 worktree나 명확한 파일 소유권이 있을 때 안전합니다</li>
+    <li style="font-size: 19px; line-height: 1.35;">무작정 병렬화하면 merge conflict와 리뷰 비용이 늘어납니다</li>
   </ul>
+  <p class="step" style="margin-top: 12px; color: var(--text-muted); font-size: 16px;">여러 agent가 병렬로 일하고 서로 조율해야 한다면 subagents보다 <span class="accent-gold">agent teams</span>를 고려하세요.</p>
 </div>
 
 <!-- 46. Specialist subagents -->
@@ -1483,7 +1516,7 @@ Provide:
       <p style="font-size: 16px;"><span class="bold accent-blue">CLI tool</span> → 샘플 input으로 실행</p>
     </div>
     <div class="card">
-      <p style="font-size: 16px;"><span class="bold accent-blue">Web UI</span> → Playwright, screenshot</p>
+      <p style="font-size: 16px;"><span class="bold accent-blue">Web UI</span> → Playwright, Chrome extension, screenshot</p>
     </div>
   </div>
   <p class="step accent-mint bold" style="margin-top: 32px; font-size: 22px;">→ 수동으로 발견한 문제는 다시 자동 테스트로 흡수하세요.</p>
@@ -1495,6 +1528,7 @@ Provide:
   <h2 class="step">UI는 눈으로 확인시켜라</h2>
   <p class="step" style="margin-top: 12px;">UI 작업에서 "구현해줘"만 말하면 안 됩니다. UI는 실제로 봐야 합니다.</p>
   <div class="step code small" style="margin-top: 32px;">구현 후 Playwright로 페이지를 열어라.
+또는 Claude Code Chrome extension으로 현재 UI를 확인하라.
 
 스크린샷을 찍고 디자인 스크린샷과 비교하라.
 차이점을 목록화하고 수정하라.
@@ -1535,7 +1569,7 @@ heading 구조가 올바른지 검증하라.</div>
     <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">에이전트가 실행할 수 있는 환경</p></div>
     <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">팀의 의도를 담은 CLAUDE.md</p></div>
     <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">필요할 때만 로드되는 Skill</p></div>
-    <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">반드시 실행되는 Hook</p></div>
+    <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">설정된 lifecycle에서 실행되는 Hook</p></div>
     <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">root context를 지키는 Subagent</p></div>
     <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">빠르고 싼 검증 루프</p></div>
     <div class="card step" style="padding: 18px;"><p style="font-size: 16px;">읽기 쉬운 코드베이스</p></div>
