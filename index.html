@@ -435,37 +435,63 @@ svg .draw.visible { stroke-dashoffset: 0; }
     <li>"새 API 만들 때는 기존 pagination 패턴 따라야 해요"</li>
     <li>"권한 체크는 route 근처에 명시적으로 있어야 해요"</li>
   </ul>
-  <div class="quote step" style="margin-top: 32px;">이 줄을 지우면 Claude가 실제로 실수할까?<br><span style="font-size: 20px; color: var(--text-soft);">→ "아니오"라면 빼도 됩니다.</span></div>
+</div>
+
+<!-- 10b. 4 auto-load locations -->
+<div class="slide" data-slide="9b">
+  <span class="section-tag">Part 1 · 2</span>
+  <h2 class="step">CLAUDE.md가 자동 로드되는<br><span class="accent-gold">4가지 위치</span></h2>
+  <p class="step" style="margin-top: 16px;">Claude Code는 매 메시지마다 아래 4곳에서 자동으로 읽어와 합칩니다. 직접 호출할 필요 없습니다.</p>
+  <div class="step" style="margin-top: 28px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 18px;">
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--line);">
+          <td style="padding: 14px 0; font-family: 'JetBrains Mono', monospace; color: var(--accent-mint); width: 38%;">~/.claude/CLAUDE.md</td>
+          <td style="padding: 14px 16px; color: var(--accent-gold); font-weight: 700; width: 15%;">전역</td>
+          <td style="padding: 14px 0; color: var(--text-soft);">모든 프로젝트 공통 — 내 코딩 스타일, 커뮤니케이션 선호도</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--line);">
+          <td style="padding: 14px 0; font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">&lt;repo&gt;/.claude/CLAUDE.md</td>
+          <td style="padding: 14px 16px; color: var(--accent-gold); font-weight: 700;">팀 공유</td>
+          <td style="padding: 14px 0; color: var(--text-soft);">소스컨트롤 체크인 — 빌드·테스트 명령, 아키텍처 규칙</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--line);">
+          <td style="padding: 14px 0; font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">&lt;repo&gt;/CLAUDE.local.md</td>
+          <td style="padding: 14px 16px; color: var(--accent-gold); font-weight: 700;">개인 per-repo</td>
+          <td style="padding: 14px 0; color: var(--text-soft);">.gitignore에 추가 — 개인 단축어, 임시 메모</td>
+        </tr>
+        <tr>
+          <td style="padding: 14px 0; font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">&lt;subdir&gt;/CLAUDE.md</td>
+          <td style="padding: 14px 16px; color: var(--accent-gold); font-weight: 700;">서브디렉토리</td>
+          <td style="padding: 14px 0; color: var(--text-soft);">특정 폴더에만 적용 — 모노레포 패키지별 규칙</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="step" style="margin-top: 28px; font-size: 20px; color: var(--text-soft);">결정 규칙: <span class="accent-gold bold">범용적이면 위쪽, 특수하면 아래쪽.</span> 아래로 갈수록 우선순위가 높습니다.</p>
 </div>
 
 <!-- 11. CLAUDE.md In/Out -->
 <div class="slide" data-slide="10">
   <span class="section-tag">Part 1 · 3</span>
   <h2>CLAUDE.md에 넣을 것 / 빼야 할 것</h2>
-  <div class="grid-2" style="margin-top: 32px;">
+  <div class="quote step" style="margin-top: 20px;">이 줄을 지우면 Claude가 실제로 실수할까?<br><span style="font-size: 20px; color: var(--text-soft);">→ "아니오"라면 빼도 됩니다.</span></div>
+  <div class="grid-2" style="margin-top: 24px;">
     <div class="card good step">
       <h4>✓ 넣을 것</h4>
       <p style="font-size: 16px; line-height: 1.85; color: var(--text-soft);">
         위반 금지 사항 (맨 위에)<br>
         build · test · lint 명령<br>
         팀 고유의 코드 스타일<br>
-        선호 테스트 방식<br>
-        PR · 브랜치 · 커밋 규칙<br>
-        아키텍처 / 도메인 컨텍스트<br>
-        필수 env var · 자주 하는 실수<br>
-        헷갈리는 모듈 관계 · 금지 구역
+        자주 하는 실수 · 금지 구역
       </p>
     </div>
     <div class="card bad step">
       <h4>✗ 빼야 할 것</h4>
       <p style="font-size: 16px; line-height: 1.85; color: var(--text-soft);">
-        언어의 표준 관습<br>
         코드 읽으면 알 수 있는 내용<br>
         길고 자세한 API 문서<br>
-        파일별 코드베이스 설명<br>
-        자주 바뀌는 정보<br>
         "깨끗한 코드를 작성하라" 같은 추상어<br>
-        수백 줄짜리 튜토리얼<br>
         <span class="accent-gold bold">민감 정보, API key, credential</span>
       </p>
     </div>
@@ -478,7 +504,7 @@ svg .draw.visible { stroke-dashoffset: 0; }
   <h2 class="step"><code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">/init</code>은 출발점일 뿐</h2>
   <p class="step" style="margin-top: 16px;">프로젝트를 분석해서 starter CLAUDE.md를 만들어줍니다.<br />기존 CLAUDE.md가 있으면 덮어쓰지 않고 개선점을 제안할 수도 있습니다.</p>
   <p class="step" style="margin-top: 10px;">좋은 시작점이지만 그대로 믿으면 안 됩니다.</p>
-  <div class="step" style="margin-top: 28px;">
+  <div class="step" style="margin-top: 24px;">
     <h3 style="color: var(--accent-gold); margin-bottom: 20px;">해야 할 일</h3>
     <ul class="list">
       <li>생성된 내용의 정확성을 확인한다</li>
@@ -488,41 +514,59 @@ svg .draw.visible { stroke-dashoffset: 0; }
       <li>자주 반복하는 지시를 넣는다</li>
     </ul>
   </div>
-  <p class="step accent-mint bold" style="margin-top: 28px; font-size: 22px;">가장 중요한 건 — 꾸준히 업데이트하며 fresh하게 유지하는 것</p>
+  <p class="step accent-mint bold" style="margin-top: 24px; font-size: 22px;">가장 중요한 건 — 꾸준히 업데이트하며 fresh하게 유지하는 것</p>
+  <p class="step" style="margin-top: 8px; font-size: 17px; color: var(--text-soft);">자동 관리가 필요하다면 <code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">/revise-claude-md</code> → <code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">/claude-md-improver</code> 사이클을 월 1회 돌리면 됩니다.</p>
 </div>
 
-<!-- 13. Memory layers -->
-<div class="slide" data-slide="11b">
+<!-- 4 principles -->
+<div class="slide" data-slide="12">
   <span class="section-tag">Part 1 · 5</span>
-  <h2>CLAUDE.md만으로는 부족합니다</h2>
-  <p style="margin-top: 12px;">세션 간 지식 전달은 역할을 나눠야 context noise가 줄어듭니다.</p>
-  <div class="grid-2" style="margin-top: 28px; gap: 24px;">
-    <div class="card step" style="padding: 22px;">
-      <h4>CLAUDE.md</h4>
-      <p style="font-size: 16px;">팀과 프로젝트의 넓은 규칙, 금지 사항, 테스트 명령</p>
+  <h2 class="step">CLAUDE.md를 잘 쓰는 <span class="accent-gold">4원칙</span></h2>
+  <div class="grid-2" style="margin-top: 32px; gap: 24px;">
+    <div class="card step" style="padding: 24px; border-color: rgba(212,167,106,0.25);">
+      <p style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.18em; margin-bottom: 10px;">01</p>
+      <h3 style="color: var(--accent-gold); font-size: 26px; margin-bottom: 10px;">Specific</h3>
+      <p style="font-size: 15px; color: var(--text-soft); margin-bottom: 14px; line-height: 1.6;">Claude가 추측하지 않도록 구체적인<br>명령어·패턴·예시를 제공한다.</p>
+      <div style="font-size: 14px; line-height: 1.9;">
+        <span style="color: #d49494;">❌ "테스트 잘 짜라"</span><br>
+        <span style="color: var(--accent-mint);">✅ "Vitest로 짜고, mock 금지"</span>
+      </div>
     </div>
-    <div class="card step" style="padding: 22px;">
-      <h4>auto memory</h4>
-      <p style="font-size: 16px;">반복 선호, 수정 패턴, 디버깅 인사이트를 보완적으로 기록</p>
+    <div class="card step" style="padding: 24px; border-color: rgba(212,167,106,0.25);">
+      <p style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.18em; margin-bottom: 10px;">02</p>
+      <h3 style="color: var(--accent-gold); font-size: 26px; margin-bottom: 10px;">Structured</h3>
+      <p style="font-size: 15px; color: var(--text-soft); margin-bottom: 14px; line-height: 1.6;">Claude가 scan할 수 있어야 한다.<br>헤딩과 리스트로 계층을 만들어라.</p>
+      <div style="font-size: 14px; line-height: 1.9;">
+        <span style="color: #d49494;">❌ 단락으로 된 flat text block</span><br>
+        <span style="color: var(--accent-mint);">✅ ## 섹션 + - 리스트</span>
+      </div>
     </div>
-    <div class="card step" style="padding: 22px;">
-      <h4><code style="font-family: 'JetBrains Mono', monospace;">.claude/rules/</code></h4>
-      <p style="font-size: 16px;">파일 타입과 경로별 규칙. 거대한 CLAUDE.md를 피하는 장치</p>
+    <div class="card step" style="padding: 24px; border-color: rgba(212,167,106,0.25);">
+      <p style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.18em; margin-bottom: 10px;">03</p>
+      <h3 style="color: var(--accent-gold); font-size: 26px; margin-bottom: 10px;">Reviewed</h3>
+      <p style="font-size: 15px; color: var(--text-soft); margin-bottom: 14px; line-height: 1.6;">오래된 규칙은 중요한 내용을 묻는다.<br>월 1회 다이어트 사이클을 돌려라.</p>
+      <div style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--accent-mint); line-height: 1.9;">
+        /revise-claude-md<br>→ /claude-md-improver
+      </div>
     </div>
-    <div class="card step" style="padding: 22px;">
-      <h4>Skills</h4>
-      <p style="font-size: 16px;">특정 업무 절차, 긴 reference, 검증 gate를 필요할 때 로드</p>
+    <div class="card step" style="padding: 24px; border-color: rgba(212,167,106,0.25);">
+      <p style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.18em; margin-bottom: 10px;">04</p>
+      <h3 style="color: var(--accent-gold); font-size: 26px; margin-bottom: 10px;">Concise</h3>
+      <p style="font-size: 15px; color: var(--text-soft); margin-bottom: 14px; line-height: 1.6;">100줄 이하를 권장한다.<br>길수록 중요한 규칙이 노이즈에 묻힌다.</p>
+      <div style="font-size: 14px; line-height: 1.9;">
+        300줄 → 80줄 → 토큰 <span style="color: var(--accent-gold); font-weight: 700;">4,000 → 800</span><br>
+        <span style="color: var(--text-muted);">줄어든 99% = "코드 보면 알 수 있는 것"</span>
+      </div>
     </div>
   </div>
-  <div class="quote step" style="margin-top: 28px; font-size: 24px;">팀 규칙은 명시하고, 반복 인사이트는 memory, 경로별 규칙은 rules, 절차는 Skill.</div>
 </div>
 
-<!-- 14. Context separation -->
-<div class="slide" data-slide="12">
+<!-- Context separation tips -->
+<div class="slide" data-slide="12c">
   <span class="section-tag">Part 1 · 6</span>
-  <h2>CLAUDE.md 작성 팁: Context 분리</h2>
-  <p style="margin-top: 12px;">모든 정보를 직접 넣으면 매 세션마다 토큰이 낭비됩니다.</p>
-  <div class="grid-2" style="margin-top: 32px;">
+  <h2 class="step">실전 팁: <span class="accent-mint">Context 분리하기</span></h2>
+  <p class="step" style="margin-top: 12px;">모든 정보를 직접 넣으면 매 세션마다 토큰이 낭비됩니다.</p>
+  <div class="grid-2" style="margin-top: 28px;">
     <div class="card bad step">
       <div class="label">Bad</div>
       <h4>모든 내용을 직접 작성</h4>
@@ -545,6 +589,63 @@ svg .draw.visible { stroke-dashoffset: 0; }
     </div>
   </div>
   <p class="step accent-mint" style="margin-top: 28px; font-size: 19px;">+ 폴더별 CLAUDE.md (<code style="font-family: 'JetBrains Mono', monospace;">src/auth/CLAUDE.md</code>) → 작업 시에만 로드 → context bloat 방지</p>
+  <div class="step" style="margin-top: 16px; display: flex; align-items: baseline; gap: 16px;">
+    <p style="font-size: 19px; color: var(--text-soft); margin: 0; white-space: nowrap;">+ 80~100줄 초과 시 <code style="font-family: 'JetBrains Mono', monospace; color: var(--accent-mint);">@import</code>로 분리 →</p>
+    <div class="code small" style="flex: 1;">@./docs/coding-style.md
+@./docs/testing-rules.md</div>
+  </div>
+</div>
+
+<!-- 12b. Mistake -> CLAUDE.md update cycle -->
+<div class="slide" data-slide="12b">
+  <span class="section-tag">Part 1 · 7</span>
+  <h2 class="step">실수가 생기면<br><span class="accent-gold">바로 CLAUDE.md에 반영하라</span></h2>
+  <p class="step" style="margin-top: 16px;">처음부터 완벽하게 쓰려 하지 마세요. <span class="bold">실수에 반응만 잘 해도 CLAUDE.md는 알아서 자랍니다.</span></p>
+  <div class="step" style="margin-top: 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+    <div class="card" style="text-align: center; padding: 24px 16px;">
+      <p style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.15em; margin-bottom: 12px;">STEP 1</p>
+      <p style="font-size: 16px; color: var(--text); line-height: 1.6;">작업 요청<br><span style="color: var(--text-soft); font-size: 14px;">→ 잘못된 방식으로 처리<br>(mock으로 테스트 작성)</span></p>
+    </div>
+    <div class="card" style="text-align: center; padding: 24px 16px;">
+      <p style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.15em; margin-bottom: 12px;">STEP 2</p>
+      <p style="font-size: 16px; color: var(--text); line-height: 1.6;">즉시 지적<br><span style="color: var(--accent-gold); font-size: 14px;">"CLAUDE.md에<br>반영해줘"</span></p>
+    </div>
+    <div class="card" style="text-align: center; padding: 24px 16px;">
+      <p style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.15em; margin-bottom: 12px;">STEP 3</p>
+      <p style="font-size: 16px; color: var(--text); line-height: 1.6;">Claude가<br>규칙 추가</p>
+    </div>
+    <div class="card good" style="text-align: center; padding: 24px 16px;">
+      <p style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); letter-spacing: 0.15em; margin-bottom: 12px;">STEP 4</p>
+      <p style="font-size: 16px; color: var(--text); line-height: 1.6;">다음 세션<br><span style="color: var(--accent-mint); font-size: 14px;">같은 실수 안 함 ✓</span></p>
+    </div>
+  </div>
+  <div class="quote step" style="margin-top: 36px;">실수 한 번이 영구적인 규칙이 되는 사이클</div>
+</div>
+
+<!-- Memory layers (capstone) -->
+<div class="slide" data-slide="11b">
+  <span class="section-tag">Part 1 · 8</span>
+  <h2>CLAUDE.md만으로는 부족합니다</h2>
+  <p style="margin-top: 12px;">세션 간 지식 전달은 역할을 나눠야 context noise가 줄어듭니다.</p>
+  <div class="grid-2" style="margin-top: 28px; gap: 24px;">
+    <div class="card step" style="padding: 22px;">
+      <h4>CLAUDE.md</h4>
+      <p style="font-size: 16px;">팀과 프로젝트의 넓은 규칙, 금지 사항, 테스트 명령</p>
+    </div>
+    <div class="card step" style="padding: 22px;">
+      <h4>auto memory</h4>
+      <p style="font-size: 16px;">반복 선호, 수정 패턴, 디버깅 인사이트를 보완적으로 기록</p>
+    </div>
+    <div class="card step" style="padding: 22px;">
+      <h4><code style="font-family: 'JetBrains Mono', monospace;">.claude/rules/</code></h4>
+      <p style="font-size: 16px;">파일 타입과 경로별 규칙. 거대한 CLAUDE.md를 피하는 장치</p>
+    </div>
+    <div class="card step" style="padding: 22px;">
+      <h4>Skills</h4>
+      <p style="font-size: 16px;">특정 업무 절차, 긴 reference, 검증 gate를 필요할 때 로드</p>
+    </div>
+  </div>
+  <div class="quote step" style="margin-top: 28px; font-size: 24px;">팀 규칙은 명시하고, 반복 인사이트는 memory, 경로별 규칙은 rules, 절차는 Skill.</div>
 </div>
 
 <!-- ===== PART 2 ===== -->
